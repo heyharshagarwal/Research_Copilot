@@ -4,14 +4,14 @@ from ingestion.vector_store.store import ChromaVectorStore
 def run_ingestion():
     DATA_DIR = "data"
 
-    print("Loading documents...")
+   
     documents = load_all_documents(DATA_DIR)
 
     if not documents:
         print("No documents found. Exiting.")
         return
 
-    print(f"Loaded {len(documents)} documents")
+    
 
     print("Initializing vector store...")
     vector_store = ChromaVectorStore(
@@ -26,3 +26,6 @@ def run_ingestion():
     vector_store.build_from_documents(documents)
 
     print("Ingestion complete!")
+
+if __name__ == "__main__":
+    run_ingestion()

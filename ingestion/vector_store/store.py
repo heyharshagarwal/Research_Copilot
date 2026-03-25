@@ -5,6 +5,7 @@ from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
 from ingestion.embedding.embedding import EmbeddingPipeline
 import uuid
+from pathlib import Path
 
 class ChromaVectorStore:
     def __init__(
@@ -48,18 +49,41 @@ class ChromaVectorStore:
         chunks = emb_pipe.chunk_documents(documents)
         embeddings = emb_pipe.embed_chunks(chunks)
 
-        texts = [chunk.page_content for chunk in chunks]
-        metadatas = [{"text": text} for text in texts]
-        ids = [str(uuid.uuid4()) for _ in texts]
+        ids, metadatas, documents_text, embeddings_list = [], [], [], []
 
-        self.collection.add(
-            embeddings=embeddings,
-            documents=texts,
-            metadatas=metadatas,
-            ids=ids
-        )
-        print(f"[INFO] Stored {len(texts)} chunks in ChromaDB")
+        for i, (chunk, embedding) in enumerate(zip(chunks, embeddings)):
+            doc_id = f"doc_{uuid.uuid4().hex[:8]}_{i}"
+            
+      
+            metadata = dict(chunk.metadata).copy()
+            
+        
+            metadata.update({
+                "chunk_id": doc_id,
+                "doc_index": i,
+                "filename": Path(metadata.get("source", "unknown")).name,
+                "paper_title": metadata.get("title") or "Untitled Research Paper",
+                "author": metadata.get("author") or "Unknown Author",
+                "page": metadata.get("page", 0) + 1 
+            })
+            
+      
+            ids.append(doc_id)
+            metadatas.append(metadata)
+            documents_text.append(chunk.page_content)
+            embeddings_list.append(embedding.tolist())
 
+        try:
+            self.collection.add(
+                ids=ids,
+                embeddings=embeddings_list,
+                metadatas=metadatas,
+                documents=documents_text
+            )
+            print(f"Successfully added {len(chunks)} chunks.")
+        except Exception as e:
+            print(f"Error adding to Chroma: {e}")
+            
     def query(self, query_text: str, top_k: int = 5):
         print(f"[INFO] Querying for: '{query_text}'")
 
