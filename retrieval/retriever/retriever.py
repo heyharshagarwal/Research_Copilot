@@ -12,5 +12,5 @@ class Retriever:
 
     def retrieve(self, query, top_k=3, score_threshold=0.0):
         docs = self.vector_store.query(query, top_k=top_k)
-        filtered_docs = [d for d in docs if d['distance'] >= score_threshold]
+        filtered_docs = [d for d in docs if d['distance'] <= score_threshold]
         return filtered_docs
