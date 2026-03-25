@@ -1,0 +1,13 @@
+langchain
+langchain_community
+langgraph
+langchain-groq
+python-dotenv
+langchain-google-genai
+ipykernel
+langchain-tavily
+langchain-core
+pypdf
+pymupdf
+sentence-transformers
+chromadb
