@@ -12,3 +12,4 @@ pypdf
 pymupdf
 sentence-transformers
 chromadb
+streamlit

@@ -8,6 +8,7 @@ A high-performance, agentic Retrieval-Augmented Generation (RAG) system designed
 
 - **Agentic Decision Making:** Uses a Tool-Calling Agent to intelligently choose between internal document retrieval, web searching (via Tavily), or complex calculations.
 - **Multi-Doc Reasoning:** Capable of comparing and contrasting findings across multiple PDFs simultaneously.
+- **Interactive UI:** Built using Streamlit to provide a clean, user-friendly interface for seamless interaction.
 - **Automatic Summarization:** Summarizes dense research papers with a focus on key findings and methodologies.
 - **Persistent Chat History:** Maintains full conversation context, allowing for deep-dive follow-up questions.
 - **Source Grounding & Citations:** Every answer derived from your documents includes the **Source File** and **Page Number** to eliminate hallucinations.
@@ -21,6 +22,7 @@ A high-performance, agentic Retrieval-Augmented Generation (RAG) system designed
 | :------------------ | :------------- |
 | **Orchestration**   | `LangChain`    |
 | **LLM**             | `GROQ`         |
+| **UI**              | `Streamlit`    |
 | **Vector Database** | `ChromaDB`     |
 | **Web Search**      | `Tavily AI`    |
 | **Package Manager** | `uv`           |
@@ -67,22 +69,10 @@ GROQ_API_KEY=your_groq_api_key
 TAVILY_API_KEY=your_tavily_api_key
 ```
 
-## Ingestion Pipeline
-
-Before chatting, you need to deploy your data to the vector database.
-
-Place your PDFs in the data/pdfs/ folder.
-
-Run the ingestion script:
-
-```bash
-python -m ingestion.ingest
-```
-
 ## Running Agent
 
-Once your documents are indexed, start the AI Research Copilot:
-
 ```bash
-python -m main
+python  main.py
 ```
+
+**First Run Note:** you may see a blank screen or a static interface for a few seconds or minutes. Please wait—this is the backend initializing the Vector Store and loading the LLM agents.

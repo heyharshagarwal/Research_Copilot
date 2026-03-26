@@ -23,7 +23,7 @@ prompt = ChatPromptTemplate.from_messages([
         ("human", "{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad"),
     ])
-    
+
 agent = create_tool_calling_agent(llm, tools_list, prompt)
 agent_executor = AgentExecutor(agent=agent, tools=tools_list, verbose=True)
 
