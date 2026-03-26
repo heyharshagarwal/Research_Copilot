@@ -6,7 +6,7 @@ A high-performance, agentic Retrieval-Augmented Generation (RAG) system designed
 
 ## 🧠 Key Features
 
-- **Agentic Decision Making:** Uses a Tool-Calling Agent to intelligently choose between internal document retrieval, web searching (via Tavily), or complex calculations.
+- **Agentic Decision Making:** Uses a Tool-Calling Agent to intelligently choose between internal document retrieval, web searching (via Tavily), or calculations.
 - **Multi-Doc Reasoning:** Capable of comparing and contrasting findings across multiple PDFs simultaneously.
 - **Interactive UI:** Built using Streamlit to provide a clean, user-friendly interface for seamless interaction.
 - **Automatic Summarization:** Summarizes dense research papers with a focus on key findings and methodologies.
